@@ -1,33 +1,34 @@
-const http = require('http');
-const port = 8080;
-
-var stat;
+var net = require('net');
 
 
-const requestHandler = (request, response) => {
-    if(request.method === 'POST')
-    {
-        stat = request.body;
-        response.end(stat);
-    }
-    
-    if(request.method === 'GET')
-    {
-        response.end(stat);
-    }
-
-    console.log(request.url);
-    console.log(stat);
-    
-  }
+var HOST = '127.0.0.1'; // parameterize the IP of the Listen
+var PORT = 6969; // TCP LISTEN port
 
 
-  const server = http.createServer(requestHandler);
+// Create an instance of the Server and waits for a conexão
+net.createServer(function(sock) {
 
-server.listen(port, (err) => {
-  if (err) {
-    return console.log('something bad happened', err)
-  }
 
-  console.log(`server is listening on ${port}`)
-});
+  // Receives a connection - a socket object is associated to the connection automatically
+  console.log('CONNECTED: ' + sock.remoteAddress +':'+ sock.remotePort);
+
+
+  // Add a 'data' - "event handler" in this socket instance
+  sock.on('data', function(data) {
+	  // data was received in the socket 
+	  // Writes the received message back to the socket (echo)
+	  sock.write(data);
+  });
+
+
+  // Add a 'close' - "event handler" in this socket instance
+  sock.on('close', function(data) {
+	  // closed connection
+	  console.log('CLOSED: ' + sock.remoteAddress +' '+ sock.remotePort);
+  });
+
+
+}).listen(PORT, HOST);
+
+
+console.log('Server listening on ' + HOST +':'+ PORT);
