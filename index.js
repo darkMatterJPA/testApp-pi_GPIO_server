@@ -1,7 +1,7 @@
 var net = require('net');
 
 
-var HOST = '127.0.0.1'; // parameterize the IP of the Listen
+var HOST = '192.168.1.115'; // parameterize the IP of the Listen
 var PORT = 6969; // TCP LISTEN port
 
 
@@ -16,7 +16,7 @@ net.createServer(function(sock) {
   // Add a 'data' - "event handler" in this socket instance
   sock.on('data', function(data) {
 	  // data was received in the socket 
-	  // Writes the received message back to the socket (echo)
+    
 	  sock.write(data);
   });
 
