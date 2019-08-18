@@ -11,6 +11,7 @@ def connect(sid, environ):
 def disconnect(sid):
     print('disconnect ', sid)
 
-@sio.event
-def connect(sid, environ):
-    raise ConnectionRefusedError('authentication failed')
+
+# @sio.event
+# def connect(sid, environ):
+#     raise ConnectionRefusedError('authentication failed')
