@@ -10,6 +10,13 @@ red.off()
 
 sio = socketio.Client()
 
+@sio.event
+def connect():
+    print('connection established')
+
+@sio.event
+def disconnect():
+    print('disconnected from server')
 
 @sio.event
 def message(data):
@@ -21,3 +28,4 @@ def message(data):
         red.off()
 
 sio.connect('http://localhost:6969')
+sio.wait()
