@@ -9,7 +9,7 @@ red = LED(14)
 red.off()
 
 sio = socketio.Client()
-sio.connect('http://localhost:6969')
+
 
 @sio.event
 def message(data):
@@ -20,3 +20,4 @@ def message(data):
     elif data == "off":
         red.off()
 
+sio.connect('http://localhost:6969')
