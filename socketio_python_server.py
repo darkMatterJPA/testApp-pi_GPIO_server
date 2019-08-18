@@ -11,6 +11,7 @@ def connect(sid, environ):
 def disconnect(sid):
     print('disconnect ', sid)
 
+sio.wait()
 
 # @sio.event
 # def connect(sid, environ):
