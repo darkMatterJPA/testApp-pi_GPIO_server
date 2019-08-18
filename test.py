@@ -8,13 +8,13 @@ from time import sleep
 red = LED(14)
 red.off()
 
-sio = socketio.AsyncClient()
-await sio.connect('http://localhost:6969')
+sio = socketio.Client()
+sio.connect('http://localhost:6969')
 
 @sio.event
-async def message(data):
+def message(data):
     print(data)
-    await sio.emit('data', data[::-1])
+    sio.emit('data', data[::-1])
     if data == "on":
         red.on()
     elif data == "off":
