@@ -1,5 +1,3 @@
-#!/usr/bin/
-
 from gpiozero import LED
 import socketio
 from time import sleep
