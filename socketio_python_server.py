@@ -1,18 +1,24 @@
-import socketio
+from flask import Flask, render_template
+from flask_sockets import Sockets
 
-# create a Socket.IO server
-sio = socketio.Server()
+app = Flask(__name__)
+app.debug = True
 
-@sio.event
-def connect(sid, environ):
-    print('connect ', sid)
+sockets = Sockets(app)
 
-@sio.event
-def disconnect(sid):
-    print('disconnect ', sid)
+@sockets.route('/')
+def echo_socket(ws):
+    while True:
+        message = ws.receive()
+        ws.send(message[::-1])
 
-sio.wait()
+# @app.route('/')
+# def hello():
+#     return 'Hello World!'
 
-# @sio.event
-# def connect(sid, environ):
-#     raise ConnectionRefusedError('authentication failed')
+@app.route('/echo_test', methods=['GET'])
+def echo_test():
+    return render_template('echo_test.html')
+
+if __name__ == '__main__':
+    app.run()
