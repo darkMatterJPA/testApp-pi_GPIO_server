@@ -51,12 +51,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onMessage(String data, IOAcknowledge ack) {
                 Log.i("INFO","Server said: " + data);
+                Toast.makeText(getApplicationContext(), "Server said: " + data, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(SocketIOException socketIOException) {
-               Log.e("ERROR","an Error occured: "+socketIOException.getMessage());
-
+               Log.e("ERROR","an Error occurred: "+socketIOException.getMessage());
+               Toast.makeText(getApplicationContext(), "an Error occurred: "+socketIOException.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
 
@@ -67,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onConnect() {
-               // System.out.println("Connection established");
                 Log.i("INFO","Connection established");
+                Toast.makeText(getApplicationContext(), "Connection established", Toast.LENGTH_SHORT).show();
             }
 
             @Override
