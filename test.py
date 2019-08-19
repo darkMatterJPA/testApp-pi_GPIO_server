@@ -8,11 +8,10 @@ red.off()
 
 sio = socketio.Client()
 
-sio.emit('message',{'data':'off'})
-
 @sio.event
 def connect():
     print('connection established')
+    sio.emit('message',{'data':'off'})
 
 @sio.event
 def disconnect():
@@ -21,15 +20,11 @@ def disconnect():
 @sio.event
 def message(data):
     print(data)
-    sio.emit('data', data[::-1])
+    #sio.emit('data', data[::-1])
     if data == "on":
         red.on()
-        print(data)
     elif data == "off":
         red.off()
-        print(data)
-    else:
-        print(data)
 
 sio.connect('http://localhost:5000')
 sio.wait()
