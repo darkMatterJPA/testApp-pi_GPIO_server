@@ -16,6 +16,7 @@ def connect():
 @sio.event
 def disconnect():
     print('disconnected from server')
+    exit(0)
 
 @sio.event
 def message(data):
