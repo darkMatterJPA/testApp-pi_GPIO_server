@@ -31,5 +31,5 @@ def message(data):
     else:
         print(data)
 
-sio.connect('http://localhost:6969')
+sio.connect('http://localhost:5000')
 sio.wait()
