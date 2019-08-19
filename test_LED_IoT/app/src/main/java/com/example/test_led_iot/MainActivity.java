@@ -83,13 +83,13 @@ public class MainActivity extends AppCompatActivity {
              public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                  String toast;
                  if (isChecked) {
-                     // The toggle is enabled
+                     // toggle is on
                      finalSocket.send("On");
-                      toast = "On"; //com.sendMsg("On");
+                      toast = "On";
                  } else {
-                     // The toggle is disabled
+                     // toggle is off
                      finalSocket.send("Off");
-                        toast = "Off"; //com.sendMsg("Off");
+                        toast = "Off";
                  }
                  Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_SHORT).show();
              }
