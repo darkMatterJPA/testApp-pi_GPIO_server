@@ -22,9 +22,9 @@ def disconnect():
 def message(data):
     print(data)
     #sio.emit('data', data[::-1])
-    if data == "on":
+    if data[::-1] == "on":
         red.on()
-    elif data == "off":
+    elif data[::-1] == "off":
         red.off()
 
 sio.connect('http://localhost:5000')
