@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">test_LED_IoT</string>
     <string name="click_the_button_to_toggle_the_led">Flip the switch to toggle the led</string>
-    <string name="switch_off">it is me</string>
+    <string name="switch_off">It is me</string>
 </resources>
