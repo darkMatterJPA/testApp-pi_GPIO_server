@@ -15,12 +15,14 @@ import java.net.URISyntaxException;
 
 public class MainActivity extends AppCompatActivity {
 
-    Switch sw;
+    private Switch sw;
     private Socket mSocket;
     {
         try {
             mSocket = IO.socket("http://192.168.1.115:5000");
         } catch (URISyntaxException e) {}
+
+
     }
 
 
@@ -30,7 +32,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //mSocket.on
         mSocket.connect();
+        if(mSocket.connected()){Toast.makeText(getApplicationContext(), "connected", Toast.LENGTH_SHORT).show();}
+        else{Toast.makeText(getApplicationContext(), "Not connected", Toast.LENGTH_SHORT).show();}
 
         sw = findViewById(R.id.switch1);
         sw.setChecked(false);
