@@ -7,37 +7,48 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import org.json.JSONObject;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-
+import java.net.URISyntaxException;
 
 
 public class MainActivity extends AppCompatActivity {
 
     Switch sw;
+    private Socket mSocket;
+    {
+        try {
+            mSocket = IO.socket("http://192.168.1.115:5000");
+        } catch (URISyntaxException e) {}
+    }
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mSocket.connect();
+
         sw = findViewById(R.id.switch1);
         sw.setChecked(false);
 
-       // final NetCom com = new NetCom("192.168.1.118",6969);
+
+
 
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
              public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                  String toast;
                  if (isChecked) {
-                     // toggle is on
-
+                     // toggle to on
                       toast = "On";
+                     mSocket.emit("message", "On");
                  } else {
-                     // toggle is off
-
+                     // toggle to off
                         toast = "Off";
+                     mSocket.emit("message", "Off");
                  }
                  Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_SHORT).show();
              }
