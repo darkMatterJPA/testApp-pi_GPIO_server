@@ -7,6 +7,7 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 
@@ -32,7 +33,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //mSocket.on
+        mSocket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
+
+            @Override
+            public void call(Object... args) {
+                mSocket.emit("message", "hi");
+               // mSocket.disconnect();
+            }
+
+        }).on("event", new Emitter.Listener() {
+
+            @Override
+            public void call(Object... args) {}
+
+        }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
+
+            @Override
+            public void call(Object... args) {}
+
+        });
+
         mSocket.connect();
         if(mSocket.connected()){Toast.makeText(getApplicationContext(), "connected", Toast.LENGTH_SHORT).show();}
         else{Toast.makeText(getApplicationContext(), "Not connected", Toast.LENGTH_SHORT).show();}
