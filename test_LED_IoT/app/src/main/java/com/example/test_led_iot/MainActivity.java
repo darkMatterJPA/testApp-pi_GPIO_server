@@ -13,18 +13,23 @@ import com.github.nkzawa.socketio.client.Socket;
 
 import java.net.URISyntaxException;
 
+import static com.github.nkzawa.socketio.client.IO.socket;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private Switch sw;
     private Socket mSocket;
-    {
-        try {
-            mSocket = IO.socket("http://192.168.1.115:5000");
-        } catch (URISyntaxException e) {}
-
-
-    }
+//    {
+//        try {//192.168.1.115:5000
+//            mSocket = socket("192.168.1.115:5000");
+//        } catch (URISyntaxException e) {
+//            System.out.println(e.getMessage());
+//            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//        }
+//
+//
+//    }
 
 
 
@@ -32,6 +37,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sw = findViewById(R.id.switch1);
+        sw.setChecked(false);
+
+        try {//192.168.1.115:5000
+            mSocket = socket("192.168.1.115:5000");
+        } catch (URISyntaxException e) {
+            System.out.println(e.getMessage());
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
 
         mSocket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
 
@@ -53,12 +67,19 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+//        mSocket.on(Socket.EVENT_CONNECT_ERROR, new Emitter.Listener(){
+//            @Override
+//            public void call(Object... args) {
+//                Exception err = (Exception)args[0];
+//                Toast.makeText(getApplicationContext(), err.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        } );
+
         mSocket.connect();
         if(mSocket.connected()){Toast.makeText(getApplicationContext(), "connected", Toast.LENGTH_SHORT).show();}
         else{Toast.makeText(getApplicationContext(), "Not connected", Toast.LENGTH_SHORT).show();}
 
-        sw = findViewById(R.id.switch1);
-        sw.setChecked(false);
+
 
 
 
