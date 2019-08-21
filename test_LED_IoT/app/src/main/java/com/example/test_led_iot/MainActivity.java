@@ -11,6 +11,7 @@ import android.widget.Toast;
 //import com.github.nkzawa.socketio.client.IO;
 //import com.github.nkzawa.socketio.client.Socket;
 
+
 import java.net.URISyntaxException;
 
 import io.socket.client.IO;
@@ -23,7 +24,7 @@ import io.socket.emitter.Emitter;
 public class MainActivity extends AppCompatActivity {
 
     private Switch sw;
-    private Socket mSocket;
+    Socket mSocket;
 //    {
 //        try {//192.168.1.115:5000
 //            mSocket = socket("192.168.1.115:5000");
@@ -46,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
         try {//192.168.1.115:5000
             mSocket = IO.socket("https://192.168.1.115:5000");
-            mSocket.connect();
+            //mSocket.connect();
+            mSocket.io().open();
         } catch (URISyntaxException e) {
             System.out.println(e.getMessage());
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -60,25 +62,27 @@ public class MainActivity extends AppCompatActivity {
                // mSocket.disconnect();
             }
 
-        }).on("event", new Emitter.Listener() {
-
-            @Override
-            public void call(Object... args) {}
-
-        }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
-
-            @Override
-            public void call(Object... args) {}
-
         });
-
-//        mSocket.on(Socket.EVENT_CONNECT_ERROR, new Emitter.Listener(){
+//        .on("event", new Emitter.Listener() {
+//
+//            @Override
+//            public void call(Object... args) {}
+//
+//        }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
+//
+//            @Override
+//            public void call(Object... args) {}
+//
+//        });
+//        .on(Socket.EVENT_CONNECT_ERROR, new Emitter.Listener(){
 //            @Override
 //            public void call(Object... args) {
 //                Exception err = (Exception)args[0];
 //                Toast.makeText(getApplicationContext(), err.getMessage(), Toast.LENGTH_SHORT).show();
 //            }
-//        } );
+//        });
+
+
 
 
         if(mSocket.connected()){Toast.makeText(getApplicationContext(), "connected", Toast.LENGTH_SHORT).show();}
