@@ -7,13 +7,17 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import com.github.nkzawa.emitter.Emitter;
-import com.github.nkzawa.socketio.client.IO;
-import com.github.nkzawa.socketio.client.Socket;
+//import com.github.nkzawa.emitter.Emitter;
+//import com.github.nkzawa.socketio.client.IO;
+//import com.github.nkzawa.socketio.client.Socket;
 
 import java.net.URISyntaxException;
 
-import static com.github.nkzawa.socketio.client.IO.socket;
+import io.socket.client.IO;
+import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
+
+//import static com.github.nkzawa.socketio.client.IO.socket;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -41,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
         sw.setChecked(false);
 
         try {//192.168.1.115:5000
-            mSocket = socket("192.168.1.115:5000");
+            mSocket = IO.socket("https://192.168.1.115:5000");
+            mSocket.connect();
         } catch (URISyntaxException e) {
             System.out.println(e.getMessage());
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -75,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        } );
 
-        mSocket.connect();
+
         if(mSocket.connected()){Toast.makeText(getApplicationContext(), "connected", Toast.LENGTH_SHORT).show();}
         else{Toast.makeText(getApplicationContext(), "Not connected", Toast.LENGTH_SHORT).show();}
 
