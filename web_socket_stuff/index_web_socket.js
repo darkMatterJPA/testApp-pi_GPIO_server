@@ -12,6 +12,6 @@ wss.on('connection', ws => {
  // ws.send('ho!')
 })
 
-ws.on('message', message => {
+wss.on('message', message => {
     console.log(`Received message => ${message}`)
   })
